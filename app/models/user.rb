@@ -8,4 +8,8 @@ class User < ApplicationRecord
       user.image = auth.info.image
     end
   end
+
+  def fb_graph(token)
+    @fb_graph ||= FacebookGraph.new(token)
+  end
 end
