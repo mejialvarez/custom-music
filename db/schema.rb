@@ -25,4 +25,5 @@ ActiveRecord::Schema.define(version: 20161113180725) do
     t.index ["provider"], name: "index_users_on_provider", unique: true, using: :btree
     t.index ["uid"], name: "index_users_on_uid", unique: true, using: :btree
   end
+
 end
