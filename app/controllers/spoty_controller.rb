@@ -1,10 +1,12 @@
 class SpotyController < ActionController::Base
   def index
     spoty = Spoty.new
-    @fb_genres = ['rock', 'blues', 'reggaeton']
+    @token = spoty.gen_spotify_token
+    @spoty_genres = spoty.get_available_genres(@token)
+    @fb_genres = ['pop']
+    @genres = spoty.get_matched_genres(@spoty_genres, @fb_genres)
     @fb_artists = ['rock', 'blues', 'reggaeton']
     @fb_statuses = ['happy']
-    @token = spoty.gen_spotify_token
-    @songs = spoty.get_songs(@token, @fb_genres, @fb_artists, @fb_statuses)
+    @songs = spoty.get_songs(@token, @genres, @fb_artists, @fb_statuses)
   end
 end

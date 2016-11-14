@@ -1,2 +1,15 @@
-<iframe src="https://embed.spotify.com/?uri=spotify:track:4eACecQhCB5NxFfGjfmIXI" frameborder="0" allowtransparency="true"></iframe>
-<%= @songs %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Recomendaciones de Spotify para Ti</h1>
+      <span>Género(s): <%= @genres %></span>
+      <br>
+      <br>
+    </div>
+    <% @songs.each do |song| %>
+      <div class="col-sm-12 col-md-4">
+          <iframe src="https://embed.spotify.com/?uri=spotify:track:<%= song %>" frameborder="0" allowtransparency="true"></iframe>
+      </div>
+    <% end %>
+  </div>
+</div>

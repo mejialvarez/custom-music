@@ -27,17 +27,28 @@ class Spoty < ApplicationRecord
   def get_songs(token, genres, artists, statuses)
     @results = Array.new
     @songs = Array.new
-
     genres.each do | genre |
       @res = RestClient.get 'https://api.spotify.com/v1/recommendations?seed_genres='+genre, {Authorization: 'Bearer '+token}
       @result = ActiveSupport::JSON.decode(@res)
       @results.push(@result)
-      @result['tracks'].each do |song|
-        @songs.push(song['external_urls'])
+      @results_songs = @result['tracks']
+      @results_songs.each do |song|
+        @songs.push(song['id'])
       end
     end
-
     return @songs
+  end
+
+  # Consulta los generos disponibles con los que sepuede hacer consulta en Spotify
+  def get_available_genres(token)
+    @res = RestClient.get 'https://api.spotify.com/v1/recommendations/available-genre-seeds', {Authorization: 'Bearer '+token}
+    @result = ActiveSupport::JSON.decode(@res)
+    return @result['genres']
+  end
+
+  # Encuentra similitudes entres lo generos de Spotify y los de Facebook y retorna una lista
+  def get_matched_genres(spoty_genres, fb_genres)
+    return spoty_genres.sample(2)
   end
 
 end
