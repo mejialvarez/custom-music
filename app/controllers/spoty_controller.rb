@@ -1,4 +1,6 @@
 class SpotyController < ActionController::Base
+  before_action :authenticate_user!
+
   def index
     spoty = Spoty.new
     @fb_genres = ['rock', 'blues', 'reggaeton']
