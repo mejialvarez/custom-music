@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recomienda.me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <%= favicon_link_tag 'favicon.png' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="home-wrapper">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2"><%= render 'shared/alert' %></div>
+    </div>
+    <section class="container tagline">
+      <h1>Recomienda<span class="highlight">.me</span></h1>
+      <h2>La banda sonora de tu vida</h2>
+      <%= yield %>
+    </section>
+  </div>
+</body>
+</html>
