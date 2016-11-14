@@ -33,6 +33,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'rspotify'
 gem 'rest-client'
 gem 'pry'
+gem 'figaro'
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

@@ -25,4 +25,7 @@ class ApplicationController < ActionController::Base
     @res = RestClient.get 'https://api.spotify.com/v1/recommendations?seed_genres=rock', {Authorization: 'Bearer '+@token}
   end
 
+  def new_session_path(scope)
+    new_user_session_path
+  end
 end
