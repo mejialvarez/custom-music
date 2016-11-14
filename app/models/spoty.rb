@@ -1,6 +1,7 @@
 class Spoty < ApplicationRecord
 
   require 'rest-client'
+  require 'fuzzystringmatch'
 
   # acousticness 0.0 - 1.0
   # danceability 0.0 - 1.0
@@ -18,37 +19,47 @@ class Spoty < ApplicationRecord
 
   # Genera un nuevo token en Spotify con las credenciales de la app creada como developer
   def gen_spotify_token
-    @token = RestClient.post('https://accounts.spotify.com/api/token', {:grant_type => 'client_credentials'},{:Authorization => 'Basic NTE1MzBhNWFmZDAyNGRiMTg5ZTZhYWVmZjNmMGJhY2Y6MzcxNjk4OGY3Zjg0NDE0MzhlYmNkNGY0OTJmZjE0Y2Q='})
-    @token = ActiveSupport::JSON.decode(@token)["access_token"]
-    return @token
+    token = RestClient.post('https://accounts.spotify.com/api/token', {:grant_type => 'client_credentials'},{:Authorization => 'Basic '+ ENV['CLIENT_ID_SECRET_SPOTIFY_APP_B64']})
+    token = ActiveSupport::JSON.decode(token)["access_token"]
+    return token
   end
 
   # Consulta canciones basadas en un genero y los parametros listado arriba
   def get_songs(token, genres, artists, statuses)
-    @results = Array.new
-    @songs = Array.new
+    results = Array.new
+    songs = Array.new
     genres.each do | genre |
-      @res = RestClient.get 'https://api.spotify.com/v1/recommendations?seed_genres='+genre, {Authorization: 'Bearer '+token}
-      @result = ActiveSupport::JSON.decode(@res)
-      @results.push(@result)
-      @results_songs = @result['tracks']
-      @results_songs.each do |song|
-        @songs.push(song['id'])
+      res = RestClient.get 'https://api.spotify.com/v1/recommendations?seed_genres='+genre, {Authorization: 'Bearer '+token}
+      result = ActiveSupport::JSON.decode(res)
+      results.push(result)
+      results_songs = result['tracks']
+      results_songs.each do |song|
+        songs.push(song['id'])
       end
     end
-    return @songs
+    return songs.take(20)
   end
 
   # Consulta los generos disponibles con los que sepuede hacer consulta en Spotify
   def get_available_genres(token)
-    @res = RestClient.get 'https://api.spotify.com/v1/recommendations/available-genre-seeds', {Authorization: 'Bearer '+token}
-    @result = ActiveSupport::JSON.decode(@res)
-    return @result['genres']
+    res = RestClient.get 'https://api.spotify.com/v1/recommendations/available-genre-seeds', {Authorization: 'Bearer '+token}
+    result = ActiveSupport::JSON.decode(res)
+    return result['genres']
   end
 
   # Encuentra similitudes entres lo generos de Spotify y los de Facebook y retorna una lista
   def get_matched_genres(spoty_genres, fb_genres)
-    return spoty_genres.sample(2)
+    genres = Array.new
+    compare = FuzzyStringMatch::JaroWinkler.create(:native)
+    spoty_genres.each do |sg|
+      fb_genres.each do |fbg|
+        similarity = compare.getDistance(sg, fbg)
+        if similarity > 0.85
+          genres.push(sg)
+        end
+      end
+    end
+    return genres
   end
 
 end
