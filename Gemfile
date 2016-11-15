@@ -40,6 +40,7 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'font-awesome-rails'
 gem 'koala', '~> 2.2'
 gem 'fuzzy-string-match'
+gem 'simplecov', :require => false, :group => :test
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
