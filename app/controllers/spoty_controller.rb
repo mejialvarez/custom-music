@@ -1,4 +1,4 @@
-class SpotyController < ActionController::Base
+class SpotyController < ApplicationController
   # before_action :authenticate_user!
 
   def index
