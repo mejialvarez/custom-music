@@ -19,8 +19,12 @@ class Spoty < ApplicationRecord
 
   # Genera un nuevo token en Spotify con las credenciales de la app creada como developer
   def gen_spotify_token
-    token = RestClient.post('https://accounts.spotify.com/api/token', {:grant_type => 'client_credentials'},{:Authorization => 'Basic '+ ENV['CLIENT_ID_SECRET_SPOTIFY_APP_B64']})
-    token = ActiveSupport::JSON.decode(token)["access_token"]
+    begin
+      token = RestClient.post('https://accounts.spotify.com/api/token', {:grant_type => 'client_credentials'},{:Authorization => 'Basic '+ ENV['CLIENT_ID_SECRET_SPOTIFY_APP_B64']})
+      token = ActiveSupport::JSON.decode(token)["access_token"]
+    rescue Exception => e
+      token = e.message
+    end
     return token
   end
 
@@ -29,7 +33,12 @@ class Spoty < ApplicationRecord
     results = Array.new
     songs = Array.new
     genres.each do | genre |
-      res = RestClient.get 'https://api.spotify.com/v1/recommendations?seed_genres='+genre, {Authorization: 'Bearer '+token}
+      begin
+        res = RestClient.get 'https://api.spotify.com/v1/recommendations?seed_genres='+genre, {Authorization: 'Bearer '+token}
+      rescue Exception => e
+        return e.message
+        next
+      end
       result = ActiveSupport::JSON.decode(res)
       results.push(result)
       results_songs = result['tracks']
@@ -42,8 +51,12 @@ class Spoty < ApplicationRecord
 
   # Consulta los generos disponibles con los que sepuede hacer consulta en Spotify
   def get_available_genres(token)
-    res = RestClient.get 'https://api.spotify.com/v1/recommendations/available-genre-seeds', {Authorization: 'Bearer '+token}
-    result = ActiveSupport::JSON.decode(res)
+    begin
+      res = RestClient.get 'https://api.spotify.com/v1/recommendations/available-genre-seeds', {Authorization: 'Bearer '+token}
+      result = ActiveSupport::JSON.decode(res)
+    rescue Exception
+      return nil
+    end
     return result['genres']
   end
 
@@ -54,7 +67,7 @@ class Spoty < ApplicationRecord
     spoty_genres.each do |sg|
       fb_genres.each do |fbg|
         similarity = compare.getDistance(sg, fbg)
-        if similarity > 0.85
+        if similarity > 0.9
           genres.push(sg)
         end
       end
