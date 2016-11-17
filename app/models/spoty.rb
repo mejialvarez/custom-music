@@ -45,7 +45,6 @@ class Spoty < ApplicationRecord
         queries.push(query+'?seed_artists='+artist)
       end
     end
-    puts queries
     return queries
   end
 
