@@ -10,7 +10,7 @@
     </div>
     <div id="songs" class="row" >
       <% @songs.each do |song| %>
-          <div class="col-sm-12 col-md-4">
+          <div class="col-sm-12 col-md-4 song">
              <iframe src="https://embed.spotify.com/?uri=spotify:track:<%= song %>" frameborder="0" allowtransparency="true"></iframe>
           </div>
       <% end %>
