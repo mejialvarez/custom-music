@@ -8,9 +8,7 @@ RSpec.describe Spoty, type: :model do
       expect(token).to be_truthy
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#gen_spotify_token" do
     it "returns 86 chars" do
       spoty = Spoty.new
@@ -18,9 +16,7 @@ RSpec.describe Spoty, type: :model do
       expect(token.size).to eq 86
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_songs" do
     it "returns not empty" do
       spoty = Spoty.new
@@ -31,9 +27,7 @@ RSpec.describe Spoty, type: :model do
       expect(songs).to be_truthy
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_songs" do
     it "returns 30 songs" do
       spoty = Spoty.new
@@ -44,9 +38,7 @@ RSpec.describe Spoty, type: :model do
       expect(songs.size).to eq 30
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_available_genres" do
     it "returns not empty" do
       spoty = Spoty.new
@@ -55,9 +47,7 @@ RSpec.describe Spoty, type: :model do
       expect(genres).to be_truthy
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_available_genres" do
     it "returns 401 Unauthorized with fake token" do
       spoty = Spoty.new
@@ -66,9 +56,7 @@ RSpec.describe Spoty, type: :model do
       expect(genres).to eq '401 Unauthorized'
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_matched_genres" do
     it "returns list with one genre with match 100%" do
       spoty = Spoty.new
@@ -78,9 +66,7 @@ RSpec.describe Spoty, type: :model do
       expect(genres[0]).to eq genres_one[0]
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_matched_genres" do
     it "returns list with one genre with match 90%" do
       spoty = Spoty.new
@@ -90,9 +76,7 @@ RSpec.describe Spoty, type: :model do
       expect(genres[0]).to eq genres_one[0]
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_matched_genres" do
     it "returns empty list with match 0%" do
       spoty = Spoty.new
@@ -102,9 +86,7 @@ RSpec.describe Spoty, type: :model do
       expect(genres.size).to eq 0
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_matched_artists" do
     it "returns list with one artist with match 100%" do
       spoty = Spoty.new
@@ -115,9 +97,7 @@ RSpec.describe Spoty, type: :model do
       expect(artists[0]).to eq artists_one[0]
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_matched_artists" do
     it "returns list with one artist with match 90%" do
       spoty = Spoty.new
@@ -128,9 +108,7 @@ RSpec.describe Spoty, type: :model do
       expect(artists.size).to eq 1
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_matched_artists" do
     it "returns empty list with empty dictionary artists seed" do
       spoty = Spoty.new
@@ -140,9 +118,7 @@ RSpec.describe Spoty, type: :model do
       expect(artists.size).to eq 0
     end
   end
-end
 
-RSpec.describe Spoty, type: :model do
   context "#get_matched_artists" do
     it "returns empty list with empty list artists seed" do
       spoty = Spoty.new
