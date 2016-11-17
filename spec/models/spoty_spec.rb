@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Spoty, type: :model do
-  context "Probando generacion del token de acceso a la API de Spotify" do
-    it "El token no es nulo" do
+  context "#gen_spotify_token" do
+    it "returns not null" do
       spoty = Spoty.new
       token = spoty.gen_spotify_token
       expect(token).to be_truthy
@@ -11,8 +11,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando generacion del token de acceso a la API de Spotify" do
-    it "El token tiene 86 caracteres" do
+  context "#gen_spotify_token" do
+    it "returns 86 chars" do
       spoty = Spoty.new
       token = spoty.gen_spotify_token
       expect(token.size).to eq 86
@@ -21,8 +21,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando generacion de canciones desde Spotify" do
-    it "La lista no esta vacía" do
+  context "#get_songs" do
+    it "returns not empty" do
       spoty = Spoty.new
       genres = ['rock', 'salsa', 'reggaeton']
       artists = ['marc', 'slipknot', 'farruko']
@@ -34,8 +34,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando generacion de canciones desde Spotify" do
-    it "La lista tiene 30 canciones" do
+  context "#get_songs" do
+    it "returns 30 songs" do
       spoty = Spoty.new
       genres = ['rock', 'salsa', 'reggaeton']
       artists = ['marc', 'slipknot', 'farruko']
@@ -47,8 +47,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando consulta de generos diponibles en Spotify" do
-    it "La lista no esta vacía" do
+  context "#get_available_genres" do
+    it "returns not empty" do
       spoty = Spoty.new
       token = spoty.gen_spotify_token
       genres = spoty.get_available_genres(token)
@@ -58,8 +58,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando consulta de generos diponibles en Spotify" do
-    it "Responde 401 Unauthorized con token erroneo" do
+  context "#get_available_genres" do
+    it "returns 401 Unauthorized with fake token" do
       spoty = Spoty.new
       token = "errortoken"
       genres = spoty.get_available_genres(token)
@@ -69,8 +69,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando match entre generos" do
-    it "Hace match al 100%" do
+  context "#get_matched_genres" do
+    it "returns list with one genre with match 100%" do
       spoty = Spoty.new
       genres_one = ['rock']
       genres_two = ['rock']
@@ -81,8 +81,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando match entre generos" do
-    it "Hace match al 90%" do
+  context "#get_matched_genres" do
+    it "returns list with one genre with match 90%" do
       spoty = Spoty.new
       genres_one = ['rock']
       genres_two = ['rockroll']
@@ -93,8 +93,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando match entre generos" do
-    it "No hace match al 0%" do
+  context "#get_matched_genres" do
+    it "returns empty list with match 0%" do
       spoty = Spoty.new
       genres_one = ['rock']
       genres_two = ['blues']
@@ -105,8 +105,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando match entre artistas" do
-    it "Hace match al 100%" do
+  context "#get_matched_artists" do
+    it "returns list with one artist with match 100%" do
       spoty = Spoty.new
       artists_one = Hash.new
       artists_one['1'] = 'slipknot'
@@ -118,8 +118,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando match entre artistas" do
-    it "Hace match al 90%" do
+  context "#get_matched_artists" do
+    it "returns list with one artist with match 90%" do
       spoty = Spoty.new
       artists_one = Hash.new
       artists_one['1'] = 'slipknottt'
@@ -131,8 +131,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando match entre artistas" do
-    it "Retorna lista vacía si recibe diccionario vacío" do
+  context "#get_matched_artists" do
+    it "returns empty list with empty dictionary artists seed" do
       spoty = Spoty.new
       artists_one = Hash.new
       artists_two = ['slipknot']
@@ -143,8 +143,8 @@ RSpec.describe Spoty, type: :model do
 end
 
 RSpec.describe Spoty, type: :model do
-  context "Probando match entre artistas" do
-    it "Retorna lista vacía si recibe lista vacía" do
+  context "#get_matched_artists" do
+    it "returns empty list with empty list artists seed" do
       spoty = Spoty.new
       artists_one = Hash.new
       artists_one['1'] = 'slipknot'

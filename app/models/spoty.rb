@@ -15,9 +15,6 @@ class Spoty < ApplicationRecord
   # tempo 0.0 - 0.1
   # valence 0.0 - 0.1 (positivismo)
 
-  # headers = "{Authorization: Bearer "+SPOTIFY_TOKEN+"}"
-  # base_url = "https://api.spotify.com/v1/recommendations"
-
   # Genera un nuevo token en Spotify con las credenciales de la app creada como developer
   def gen_spotify_token
     begin

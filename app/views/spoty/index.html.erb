@@ -2,8 +2,10 @@
   <div class="row">
     <div class="col-sm-12">
       <h1>Recomendaciones de Spotify para Ti</h1>
-      <p>Género(s): <%= @genres %></p>
-      <p>Artista(s): <%= @artists %></p>
+      <% if @songs.size %>
+        <p>No hemos encontrado nada para ti :(</p>
+        <p>Dale like a un artista e intenta nuevamente</p>
+      <% end %>
       <br>
       <br>
     </div>
