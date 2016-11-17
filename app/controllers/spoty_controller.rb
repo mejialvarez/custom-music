@@ -3,6 +3,7 @@ class SpotyController < ApplicationController
 
   def index
     spoty = Spoty.new
+    user = User.new
     token = spoty.gen_spotify_token
 
     # Facebook data seeds

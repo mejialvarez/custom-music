@@ -51,6 +51,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+
 group :test do
   # Generate data test
   gem 'faker', '~> 1.6', '>= 1.6.6'

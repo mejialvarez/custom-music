@@ -1,16 +1,41 @@
+<%= javascript_include_tag "index"%>
+
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Recomendaciones de Spotify para Ti</h1>
-      <p>Género(s): <%= @genres %></p>
-      <p>Artista(s): <%= @artists %></p>
+      <h2>Las recomendaciones que traemos para ti</h2>
+      <div class="row">
+        <div class="col-sm-12 col-md-3">
+          <p>
+            Género(s):
+            <% @genres.each do |genre|%>
+              <%= genre %>, 
+            <%end%>
+          </p>
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <p>
+            Artista(s):
+             <% @artists.each do |artist| %>
+              <%= artist[1]%>,
+             <%end%>
+           </p>
+        </div>
+        <div class="col-sm-12 col-md-3">
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <button id="hide">Ocultar Playlist</button>
+        </div>
+      </div>
       <br>
       <br>
     </div>
-    <% @songs.each do |song| %>
-      <div class="col-sm-12 col-md-4">
-          <iframe src="https://embed.spotify.com/?uri=spotify:track:<%= song %>" frameborder="0" allowtransparency="true"></iframe>
-      </div>
-    <% end %>
+    <div id="songs" class="row" >
+      <% @songs.each do |song| %>
+          <div class="col-sm-12 col-md-4">
+             <iframe src="https://embed.spotify.com/?uri=spotify:track:<%= song %>" frameborder="0" allowtransparency="true"></iframe> 
+          </div>   
+      <% end %>
+    </div>
   </div>
 </div>
