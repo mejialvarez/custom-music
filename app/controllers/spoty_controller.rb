@@ -19,6 +19,8 @@ class SpotyController < ApplicationController
 
     # Spotify query
     @songs = spoty.get_songs(token, @genres, @artists, fb_statuses)
+    @u_name= current_user.name
+    @u_image= current_user.image
   end
 
 end
