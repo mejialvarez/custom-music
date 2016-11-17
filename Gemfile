@@ -78,10 +78,8 @@ group :development, :test do
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3'
   # Rspec command for spring
   gem 'spring-commands-rspec', '~> 1.0', '>= 1.0.4'
-end
-
-group :production do
-  gem 'rails_12factor'
+  # Allows stubbing HTTP requests
+  gem 'webmock', '~> 2.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
