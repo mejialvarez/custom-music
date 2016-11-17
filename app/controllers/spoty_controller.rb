@@ -21,4 +21,4 @@ class SpotyController < ApplicationController
     def set_fb_graph
       current_user.set_fb_graph(session['fb_access_token'])
     end
-end
+en
