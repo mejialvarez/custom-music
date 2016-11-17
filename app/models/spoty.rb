@@ -29,25 +29,55 @@ class Spoty < ApplicationRecord
     return token
   end
 
-  # Consulta canciones basadas en un genero y los parametros listado arriba
-  def get_songs(token, genres, artists, statuses)
-    results = Array.new
-    songs = Array.new
-    genres.each do | genre |
-      artists.each do |artist, name|
-        begin
-          res = RestClient.get 'https://api.spotify.com/v1/recommendations?seed_genres='+genre+'&seed_artists='+artist, {Authorization: 'Bearer '+token}
-        rescue Exception => e
-          return e.message
-        end
-        result = ActiveSupport::JSON.decode(res)
-        results.push(result)
-        results_songs = result['tracks']
-        results_songs.each do |song|
-          songs.push(song['id'])
+  # Construye las consultas con base en el contenido de los arreglos de generos y artistas
+  def build_queries(genres, artists)
+    query = 'https://api.spotify.com/v1/recommendations?seed_genres='
+    queries = Array.new
+    if genres.size > 0 && artists.size > 0
+      genres.each do | genre |
+        artists.each do |artist, name|
+          queries.push(query+'?seed_genres='+genre+'&seed_artists='+artist)
         end
       end
+    elsif genres.size > 0
+      genres.each do | genre |
+        queries.push(query+'?seed_genres='+genre)
+      end
+    else
+      artists.each do |artist, name|
+        queries.push(query+'?seed_artists='+artist)
+      end
     end
+    return queries
+  end
+
+  # Consulta canciones basadas en un genero y los parametros listado arriba
+  def get_songs(fb_genres, fb_artists, fb_statuses)
+
+    results = Array.new
+    songs = Array.new
+
+    token = gen_spotify_token
+    spoty_genres = get_available_genres(token)
+    genres = get_matched_genres(spoty_genres, fb_genres)
+    spoty_artists = search_artists(token, fb_artists)
+    artists = get_matched_artists(spoty_artists, fb_artists)
+    queries = build_queries(genres, artists)
+
+    queries.each do | query |
+      begin
+        res = RestClient.get query, {Authorization: 'Bearer '+token}
+      rescue Exception => e
+        return e.message
+      end
+      result = ActiveSupport::JSON.decode(res)
+      results.push(result)
+      results_songs = result['tracks']
+      results_songs.each do |song|
+        songs.push(song['id'])
+      end
+    end
+
     return songs.sample(30)
   end
 
@@ -57,7 +87,7 @@ class Spoty < ApplicationRecord
   end
 
   # Consulta los ids de los artistas en Spotify basado en una lista de artistas de Facebook
-  def get_artists_ids(token, artists)
+  def search_artists(token, artists)
     artists_ids = Hash.new
     artists.each do |artist|
       artist_encoded = encode_text(artist)
@@ -80,16 +110,16 @@ class Spoty < ApplicationRecord
     begin
       res = RestClient.get 'https://api.spotify.com/v1/recommendations/available-genre-seeds', {Authorization: 'Bearer '+token}
       result = ActiveSupport::JSON.decode(res)
-    rescue Exception
-      return nil
+    rescue Exception => e
+      return e.message
     end
     return result['genres']
   end
 
   # Encuentra similitudes entre los artistas de Spotify y los de Facebook
-  def get_matched_artists(spotify_artists, fb_artists)
+  def get_matched_artists(spoty_artists, fb_artists)
     matched_artists = Hash.new
-    spotify_artists.each do |id, name|
+    spoty_artists.each do |id, name|
       fb_artists.each do |fa|
         similarity = match_text(name, fa)
         if similarity >= 0.9
