@@ -31,7 +31,7 @@ class Spoty < ApplicationRecord
 
   # Construye las consultas con base en el contenido de los arreglos de generos y artistas
   def build_queries(genres, artists)
-    query = 'https://api.spotify.com/v1/recommendations?seed_genres='
+    query = 'https://api.spotify.com/v1/recommendations'
     queries = Array.new
     if genres.size > 0 && artists.size > 0
       genres.each do | genre |
@@ -48,6 +48,7 @@ class Spoty < ApplicationRecord
         queries.push(query+'?seed_artists='+artist)
       end
     end
+    puts queries
     return queries
   end
 
