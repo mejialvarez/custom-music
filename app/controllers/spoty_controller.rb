@@ -6,8 +6,8 @@ class SpotyController < ApplicationController
     spoty = Spoty.new
 
     # Facebook data seeds
-    # fb_genres = ['rock', 'salsa', 'reggaeton']
-    # fb_artists = ['slipknot', 'marc', 'farruko']
+    # fb_genres = ['rock']
+    # fb_artists = ['slipknot']
 
     fb_genres = current_user.genres
     fb_artists = current_user.artists

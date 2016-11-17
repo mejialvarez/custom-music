@@ -6,9 +6,55 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet">
+    <link href="../css/normalize.min.css" rel="stylesheet"/>
+    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="../css/animate.css" rel="stylesheet"/>
+    <link href=".css/templatemo_misc.css" rel="stylesheet"/>
+    <link href="../css/templatemo_style.css" rel="stylesheet"/> 
   </head>
 
   <body>
-    <%= yield %>
+    <!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="front">
+        <div class="site-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-6">
+                            <h1><a href="#">Recomienda.me</a></h1>
+                    </div> <!-- /.col-md-4 -->
+                    <div class="col-md-8 col-sm-6 col-xs-6">
+                        <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
+                        <div class="main-menu">
+                            <ul>
+                                <li>El soundtrack de tu vida</li>
+                                <li><a href=""></a></li>
+                                <li><a href="">Cerrar Sesión</a></li>
+                            </ul>
+                        </div> <!-- /.main-menu -->
+                    </div> <!-- /.col-md-8 -->
+                </div> <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="responsive">
+                            <div class="main-menu">
+                                <ul>
+                                    <li>El soundtrack de tu vida</li>
+                                    <li><a href="#contact">Cerrar Sesión</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- /.container -->
+        </div> <!-- /.site-header -->
+    </div> <!-- /#front -->
+    <div class="container principal">
+      <%= yield %>
+    </div>
+
+
   </body>
 </html>
