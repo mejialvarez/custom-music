@@ -6,6 +6,8 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.name = auth.info.name
       user.image = auth.info.image
+      session["name"]= user.name
+      session["image"] = user.image
     end
   end
 
