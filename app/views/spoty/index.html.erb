@@ -1,16 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Recomendaciones de Spotify para Ti</h1>
-      <p>Género(s): <%= @genres %></p>
-      <p>Artista(s): <%= @artists %></p>
-      <br>
-      <br>
+      <h2>Las recomendaciones que traemos para ti</h2>
+      <div class="pull-right btn-playlist-hide"><button id="hide" class="btn btn-success">Ocultar Playlist</button></div>
     </div>
-    <% @songs.each do |song| %>
-      <div class="col-sm-12 col-md-4">
-          <iframe src="https://embed.spotify.com/?uri=spotify:track:<%= song %>" frameborder="0" allowtransparency="true"></iframe>
-      </div>
-    <% end %>
+    <div id="songs" class="row" >
+      <% @songs.each do |song| %>
+          <div class="col-sm-12 col-md-4">
+             <iframe src="https://embed.spotify.com/?uri=spotify:track:<%= song %>" frameborder="0" allowtransparency="true"></iframe> 
+          </div>   
+      <% end %>
+    </div>
   </div>
 </div>
