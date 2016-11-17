@@ -9,7 +9,15 @@ class User < ApplicationRecord
     end
   end
 
-  def fb_graph(token)
+  def set_fb_graph(token)
     @fb_graph ||= FacebookGraph.new(token)
+  end
+
+  def genres
+    @fb_graph.user_genres
+  end
+
+  def artists
+    @fb_graph.user_artists
   end
 end
