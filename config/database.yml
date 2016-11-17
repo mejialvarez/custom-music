@@ -23,8 +23,8 @@ default: &default
 
 development:
   <<: *default
-  user: danrax
-  password: daniel58
+  user: postgres
+  password: root
   host: localhost
   database: custom-music_development
 

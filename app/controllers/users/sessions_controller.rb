@@ -1,5 +1,3 @@
 class Users::SessionsController < Devise::SessionsController
-  layout 'session'
-
-  
+  layout 'session'  
 end
