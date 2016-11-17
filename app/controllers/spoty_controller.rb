@@ -9,8 +9,8 @@ class SpotyController < ApplicationController
     # fb_genres = ['rock', 'salsa', 'reggaeton']
     # fb_artists = ['slipknot', 'marc', 'farruko']
 
-    fb_genres = current_user.genres
-    fb_artists = current_user.artists
+    # fb_genres = current_user.genres
+    # fb_artists = current_user.artists
     fb_statuses = ['happy']
 
     # Spotify query
