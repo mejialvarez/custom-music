@@ -1,13 +1,14 @@
 class SpotyController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
+  before_action :set_fb_graph
 
   def index
     spoty = Spoty.new
     token = spoty.gen_spotify_token
 
     # Facebook data seeds
-    fb_genres = ['salsa']
-    fb_artists = ['slipknot']
+    fb_genres = current_user.genres
+    fb_artists = current_user.artists
     fb_statuses = ['happy']
 
     # Spotify data seeds
@@ -20,4 +21,8 @@ class SpotyController < ApplicationController
     @songs = spoty.get_songs(token, @genres, @artists, fb_statuses)
   end
 
+  private
+    def set_fb_graph
+      current_user.set_fb_graph(session['fb_access_token'])
+    end
 end
