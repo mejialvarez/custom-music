@@ -23,3 +23,7 @@
   max-width: 100%;
   display: block;
 }
+
+.btn-playlist-hide {
+  padding: 10px;
+}

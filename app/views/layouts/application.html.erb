@@ -7,11 +7,6 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet">
-    <link href="../css/normalize.min.css" rel="stylesheet"/>
-    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="../css/animate.css" rel="stylesheet"/>
-    <link href=".css/templatemo_misc.css" rel="stylesheet"/>
-    <link href="../css/templatemo_style.css" rel="stylesheet"/> 
   </head>
 
   <body>
@@ -31,7 +26,7 @@
                             <ul>
                                 <li>El soundtrack de tu vida</li>
                                 <li><a href=""></a></li>
-                                <li><a href="">Cerrar Sesión</a></li>
+                                <li><%= link_to 'Cerrar Sesión', destroy_user_session_path %></li>
                             </ul>
                         </div> <!-- /.main-menu -->
                     </div> <!-- /.col-md-8 -->

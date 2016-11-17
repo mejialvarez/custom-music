@@ -788,21 +788,3 @@ body{
   padding-top: 8%;
   background-color: white;
 }
-
-#hide{
-  background-color: #26b864;
-  color: black;
-  padding: 3%;
-  border-radius: 7px;
-}
-
-#hide:hover{
-  transition: 1s;
-  background-color: rgba(0,0,0,0);
-  border-style: solid;
-  border-width: 2px;
-  border-color: #26b864;
-  padding: 3%;
-  color: #26b864;
-  border-radius: 7px;
-}

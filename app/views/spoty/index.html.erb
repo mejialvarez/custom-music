@@ -1,34 +1,8 @@
-<%= javascript_include_tag "index"%>
-
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
       <h2>Las recomendaciones que traemos para ti</h2>
-      <div class="row">
-        <div class="col-sm-12 col-md-3">
-          <p>
-            Género(s):
-            <% @genres.each do |genre|%>
-              <%= genre %>, 
-            <%end%>
-          </p>
-        </div>
-        <div class="col-sm-12 col-md-3">
-          <p>
-            Artista(s):
-             <% @artists.each do |artist| %>
-              <%= artist[1]%>,
-             <%end%>
-           </p>
-        </div>
-        <div class="col-sm-12 col-md-3">
-        </div>
-        <div class="col-sm-12 col-md-3">
-          <button id="hide">Ocultar Playlist</button>
-        </div>
-      </div>
-      <br>
-      <br>
+      <div class="pull-right btn-playlist-hide"><button id="hide" class="btn btn-success">Ocultar Playlist</button></div>
     </div>
     <div id="songs" class="row" >
       <% @songs.each do |song| %>
